@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20160229152432) do
   create_table "individuals", force: :cascade do |t|
     t.integer  "family_tree_id"
     t.string   "name"
+    t.string   "father"
+    t.string   "mother"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

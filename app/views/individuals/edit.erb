@@ -2,10 +2,12 @@
 
 <form action="/family_trees/<%=@tree.id%>/individuals/<%=@individual.id%>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
-  <label>Edit name:</label>
+  <label>Edit Individual's Name or Relationships:</label>
 
   <input type="text" name="individual_name" id="individual_name" value="<%=@individual.name%>"> 
   <br/>
+  Individual's Father's Name: <input type="text" id="individual[father]" name="father_name" value="<%=@individual.father%>"/><br>
+  Individual's Mother's Name: <input type="text" id="individual[mother" name="mother_name" value="<%=@individual.mother%>"/><br>
 
     <input type="submit" value='submit'/>
 </form>
