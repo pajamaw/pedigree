@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   extend Slugifiable 
   validates_presence_of :username, :password
   has_secure_password
-  has_many :family_tree
+  has_many :family_trees
   has_many :individuals, through: :family_tree
 end 
 

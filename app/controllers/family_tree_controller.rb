@@ -1,4 +1,4 @@
-class IndividualController < ApplicationController
+class FamilyTreeController < ApplicationController
 
 
   get "/family_trees" do 

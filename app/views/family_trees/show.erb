@@ -1,0 +1,14 @@
+<h1>Welcome <%=current_user.username%>!</h1>
+
+<p><%=@tree.name%></p>
+
+
+<p><a href="/family_trees/<%=@tree.id%>/edit">Edit Tree Name</a>         <a href="/family_trees/new">Create New Tree</a></p>
+
+<form action="/family_trees/<%=@tree.id%>/delete" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete"/>
+  <input type="submit" name="Delete Tree" id="Delete" value="Delete Tree"/>
+</form>
+<p><a href="/users/logout">Log Out</a></p>
+
+
