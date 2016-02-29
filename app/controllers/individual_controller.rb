@@ -27,8 +27,8 @@ class IndividualController < ApplicationController
   end
 
   post "/family_trees/:id/individuals" do
+    @tree = FamilyTree.find_by_id(params[:id])
     @individual = Individual.new(name: params[:individual_name], family_tree_id: @tree.id)
-    @tree = FamilyTree.find_by_id(@individual.family_tree_id)
     if @individual.name == ""
       redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave any fields blank."}
     else 
