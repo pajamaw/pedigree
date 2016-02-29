@@ -31,6 +31,12 @@ class FamilyTreeController < ApplicationController
   get '/family_trees/:id' do 
     if logged_in?
       @tree = FamilyTree.find_by_id(params[:id])
+      @individuals = []
+      Individual.all.each do |t|
+        if t.family_tree_id == @tree.id
+          @individuals << t
+        end
+      end
       erb :'family_trees/show'
     else
       redirect "/users/login"
@@ -64,6 +70,15 @@ class FamilyTreeController < ApplicationController
     if logged_in?
       @tree = FamilyTree.find_by_id(params[:id])
       if @tree.user_id == session[:id]
+        @theforgotten =[]
+        @theforgotten = Individual.all.select do |individual| 
+          individual.family_tree_id == @tree.id
+        end
+        if @theforgotten != []
+          @theforgotten.each do |t|
+            t.delete
+          end
+        end
         @tree.delete
         redirect "/family_trees"
       else

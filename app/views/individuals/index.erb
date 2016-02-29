@@ -1,8 +1,10 @@
 <h1>Welcome <%= current_user.username%>!</h1>
 
+<h3><%=@tree.name%> Tree Members</h3>
 <%@individuals.each do |individual|%>
-<p><a href="/family_trees/<%=@tree.id%>/individuals">Name: </a><p><%=individual.name%></p>
+<p>Name:<a href="/family_trees/<%=@tree.id%>/individuals/<%=individual.id%>"><%=individual.name%></a></p>
 <p>Created At: <%=individual.created_at%></p>
 <%end%>
 <p><a href="/users/logout">Log Out</a></p>
 <p><a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a></p>
+<p><a href="/family_trees">Back to all Trees</a></p>

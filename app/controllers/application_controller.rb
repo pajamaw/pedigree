@@ -22,6 +22,9 @@ class ApplicationController < Sinatra::Base
       User.find(session[:id])
     end
 
+    def belongs_to_you?
+      current_user.id == @tree.user_id
+    end
  
   end
 

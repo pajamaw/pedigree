@@ -1,0 +1,14 @@
+<h1>Welcome <%=current_user.username%>!</h1>
+
+<h3><%=@tree.name%></h3>
+<h4><%=@individual.name%></h4>
+
+<p><a href="/family_trees/<%=@tree.id%>/individuals/<%=@individual.id%>/edit">Edit Individual Name</a>         <a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a></p>
+
+<form action="/family_trees/<%=@tree.id%>/individuals/<%=@individual.id%>/delete" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete"/>
+  <input type="submit" name="Delete Individual" id="Delete" value="Delete Individual"/>
+</form>
+<p><a href="/family_trees/<%=@tree.id%>">Back to the Tree</a></p>
+<p><a href="/users/logout">Log Out</a></p>
+

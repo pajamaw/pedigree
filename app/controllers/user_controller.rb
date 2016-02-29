@@ -51,4 +51,8 @@ class UserController < ApplicationController
     redirect "/"
   end
 
+  get '/users/failure' do 
+    erb :'users/failure'
+  end
+
 end
