@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 20160229152432) do
     t.datetime "updated_at"
   end
 
+  create_table "individuals", force: :cascade do |t|
+    t.integer  "family_tree_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "family_name"

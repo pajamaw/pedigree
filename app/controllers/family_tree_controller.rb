@@ -18,7 +18,7 @@ class FamilyTreeController < ApplicationController
     end
   end
 
-  post "/family_trees/new" do
+  post "/family_trees" do
     @tree = FamilyTree.new(name: params[:name], user_id: session[:id])
     if params[:name].empty? 
       redirect "/family_trees/new", locals: {message: "Please do not leave any fields blank."}

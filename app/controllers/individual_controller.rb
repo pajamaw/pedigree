@@ -1,30 +1,39 @@
 class IndividualController < ApplicationController
 
 
-  get "/family_trees" do 
+  get "/family_trees/:id/individuals" do 
     if logged_in?
-      @trees = FamilyTree.all
-      erb :'family_trees/index'
+      @individuals = []
+      @tree = FamilyTree.find_by_id(params[:id])
+      Individual.all.each do |t|
+        if t.family_tree_id == @tree.id
+          @individuals << t
+        end
+      end
+      @individuals
+      erb :'individuals/index'
     else
-      redirect "/"
+      redirect "/family_trees/:id"
     end
   end  
 
-  get "/family_trees/new" do 
+  get "/family_trees/:id/individuals/new" do 
     if logged_in?
-      erb :'family_trees/new'
+      @tree = FamilyTree.find_by_id(params[:id])
+      erb :'individuals/new'
     else
       redirect "/"
     end
   end
 
-  post "/family_trees/new" do
-    @tree = FamilyTree.new(name: params[:name], user_id: session[:id])
-    if params[:name].empty? 
-      redirect "/family_trees/new", locals: {message: "Please do not leave any fields blank."}
+  post "/family_trees/:id/individuals" do
+    @tree = FamilyTree.find_by_id(params[:id])
+    @individual = Individual.new(name: params[:individual_name], family_tree_id: @tree.id)
+    if @individual.name == ""
+      redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave any fields blank."}
     else 
-      @tree.save
-      redirect "/family_trees" 
+      @individual.save
+      redirect "/family_trees/#{@tree.id}/individuals" 
     end
   end
 
