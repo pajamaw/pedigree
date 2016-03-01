@@ -29,10 +29,19 @@ class IndividualController < ApplicationController
   post "/family_trees/:id/individuals" do
     @tree = FamilyTree.find_by_id(params[:id])
     @individual = Individual.find_or_create_by(name: params[:individual][:name], family_tree_id: @tree.id)
-    @individual.father = Individual.find_or_create_by(name: params[:individual][:father_name], family_tree_id: @tree.id)  
-    @individual.mother = Individual.find_or_create_by(name: params[:individual][:mother_name], family_tree_id: @tree.id)
-    @individual.spouse = Individual.find_or_create_by(name: params[:individual][:spouse_name], family_tree_id: @tree.id) unless params[:individual][:spouse_name] == ""
-
+    @father = Individual.find_or_create_by(name: params[:individual][:father_name], family_tree_id: @tree.id) unless params[:individual][:father_name] == ""
+        if @father
+          @individual.father = @father.name
+        end
+    @mother = Individual.find_or_create_by(name: params[:individual][:mother_name], family_tree_id: @tree.id) unless params[:individual][:mother_name] == ""
+        if @mother
+          @individual.mother = @mother.name
+        end
+    @spouse = Individual.find_or_create_by(name: params[:individual][:spouse_name], family_tree_id: @tree.id) unless params[:individual][:spouse_name] == ""
+        if @spouse
+          @individual.spouse = @spouse.name
+          @spouse.spouse = @individual.name
+        end
     if @individual.name == "" 
       redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave any fields blank."}
     else 
@@ -69,16 +78,11 @@ class IndividualController < ApplicationController
     @individual = Individual.find_by_id(params[:id])
     @tree = FamilyTree.find_by_id(@individual.family_tree_id)
 
-    if params[:individual_name] == ""
+    if params[:individual][:name] == ""
       redirect "/family_trees/#{@tree.id}/individuals/#{@individual.id}/edit", locals: {message: "Please do not leave any fields blank."}
     else
-      @individual.update(name: params[:individual_name])
-      @individual.father = Individual.find_or_create_by(name: params[:father_name], family_tree_id: @tree.id)
-        unless params[:father_name] == ""
-        end
-      @individual.mother = Individual.find_or_create_by(name: params[:mother_name], family_tree_id: @tree.id)
-        unless params[:mother_name] == ""
-        end
+      
+      @individual.update(name: params[:individual][:name])
       redirect to "/family_trees/#{@tree.id}/individuals"
     end
   end
@@ -96,6 +100,38 @@ class IndividualController < ApplicationController
     else
       redirect "/users/login"
     end
+  end
+
+
+  helpers do 
+    def sibling
+      @sibling = []
+      @sibling = Individual.all.select do |t|
+        t.father && t.mother
+        end
+      @sibling
+    end
+
+    def self.spouse_builder
+      @sp = self.spouse 
+      @sp.spouse = self.name
+    end
+
+    
+    #def grandfather?(individual)
+     # @grandparents =[]
+      #@fparent_generation = individual.father
+      #@mparent_generation = individual.mother 
+      #if @fparent_generation.father != nil
+       #  @fgrandparent = @fparent_generation.father
+        #@grandparents << @fparent_generation
+      #else
+       # @fparent_generation.
+      #end
+      #if @mparent_generation.mother != nil
+      #  @grandparents << mparent_generation
+      #end 
+    #end
   end
 
 end

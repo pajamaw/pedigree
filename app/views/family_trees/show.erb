@@ -1,13 +1,15 @@
 <h2>Welcome <%=current_user.username%>!</h2>
 
-<h3><%=@tree.name%></h3>
+<h3>Pedigree of <%=@tree.name%></h3>
 <h4>Members of the Tree:</h4>
 <%@individuals.each do |t|%>
   <p><a href="/family_trees/<%=@tree.id%>/individuals/<%=t.id%>"><%=t.name%></a></p>
   <%end%>
 
 <p><a href="/family_trees/<%=@tree.id%>/individuals/new">Add Individuals</a></p>
-<p><a href="/family_trees/<%=@tree.id%>/edit">Edit Tree Name</a>         <a href="/family_trees/new">Create New Tree</a></p>
+<p><a href="/family_trees/<%=@tree.id%>/edit">Edit Tree Name</a></br>
+
+<a href="/family_trees/new">Create New Tree</a></p>
 
 <form action="/family_trees/<%=@tree.id%>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete"/>
