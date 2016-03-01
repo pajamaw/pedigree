@@ -40,7 +40,6 @@ class IndividualController < ApplicationController
     @spouse = Individual.find_or_create_by(name: params[:individual][:spouse_name], family_tree_id: @tree.id) unless params[:individual][:spouse_name] == ""
         if @spouse
           @individual.spouse = @spouse.name
-          @spouse.spouse = @individual.name
         end
     if @individual.name == "" 
       redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave any fields blank."}
@@ -107,7 +106,6 @@ class IndividualController < ApplicationController
     def sibling
       @sibling = []
       @sibling = Individual.all.select do |t|
-        t.father && t.mother
         end
       @sibling
     end
