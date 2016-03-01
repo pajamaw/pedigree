@@ -3,9 +3,9 @@ class CreateIndividuals < ActiveRecord::Migration
     create_table :individuals do |t|
       t.integer :family_tree_id
       t.string :name
-      t.string :father
-      t.string :mother
-      t.string :spouse
+      t.integer :father_id
+      t.integer :mother_id
+      t.integer :spouse_id
 
       t.timestamps
     end

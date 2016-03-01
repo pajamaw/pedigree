@@ -31,15 +31,16 @@ class IndividualController < ApplicationController
     @individual = Individual.find_or_create_by(name: params[:individual][:name], family_tree_id: @tree.id)
     @father = Individual.find_or_create_by(name: params[:individual][:father_name], family_tree_id: @tree.id) unless params[:individual][:father_name] == ""
         if @father
-          @individual.father = @father.name
+          @individual.father_id = @father.id
         end
     @mother = Individual.find_or_create_by(name: params[:individual][:mother_name], family_tree_id: @tree.id) unless params[:individual][:mother_name] == ""
         if @mother
-          @individual.mother = @mother.name
+          @individual.mother_id = @mother.id
         end
     @spouse = Individual.find_or_create_by(name: params[:individual][:spouse_name], family_tree_id: @tree.id) unless params[:individual][:spouse_name] == ""
         if @spouse
-          @individual.spouse = @spouse.name
+          @individual.spouse_id = @spouse.id
+          @spouse.spouse_id = @individual.id
         end
     if @individual.name == "" 
       redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave any fields blank."}

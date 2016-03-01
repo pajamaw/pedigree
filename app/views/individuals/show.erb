@@ -2,10 +2,11 @@
 
 <h3><%=@tree.name%></h3>
 <h4><%=@individual.name%>'s Relationships:</h4>
-  <ul>Father: <%=@individual.father%></ul>
-  <ul>Mother: <%=@individual.mother%></ul>
-  <ul>Spouse: <%=@individual.spouse%></ul>
-
+  
+  <ul>Father: <%=@individual.father %></ul>
+  <ul>Mother: <%=@individual.mother %></ul>
+  <ul>Spouse: <%=@individual.spouse %></ul>
+  <ul>Children: 
 
 <p><a href="/family_trees/<%=@tree.id%>/individuals/<%=@individual.id%>/edit">Edit Individual Name</a>
   <br/><a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a></p>
