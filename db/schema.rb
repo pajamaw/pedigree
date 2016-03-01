@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160229152432) do
     t.integer  "father_id"
     t.integer  "mother_id"
     t.integer  "spouse_id"
+    t.string   "gender"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

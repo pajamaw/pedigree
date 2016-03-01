@@ -28,22 +28,22 @@ class IndividualController < ApplicationController
 
   post "/family_trees/:id/individuals" do
     @tree = FamilyTree.find_by_id(params[:id])
-    @individual = Individual.find_or_create_by(name: params[:individual][:name], family_tree_id: @tree.id)
-    @father = Individual.find_or_create_by(name: params[:individual][:father_name], family_tree_id: @tree.id) unless params[:individual][:father_name] == ""
+    @individual = Individual.find_or_create_by(name: params[:individual][:name], gender: params[:individual][:gender], family_tree_id: @tree.id)
+    @father = Individual.find_or_create_by(name: params[:individual][:father_name], gender: params[:individual][:father_gender], family_tree_id: @tree.id) unless params[:individual][:father_name] == "" || params[:individual][:father_gender] == nil
         if @father
           @individual.father_id = @father.id
         end
-    @mother = Individual.find_or_create_by(name: params[:individual][:mother_name], family_tree_id: @tree.id) unless params[:individual][:mother_name] == ""
+    @mother = Individual.find_or_create_by(name: params[:individual][:mother_name], gender: params[:individual][:mother_gender], family_tree_id: @tree.id) unless params[:individual][:mother_name] == "" || params[:individual][:mother_gender] == nil
         if @mother
           @individual.mother_id = @mother.id
         end
-    @spouse = Individual.find_or_create_by(name: params[:individual][:spouse_name], family_tree_id: @tree.id) unless params[:individual][:spouse_name] == ""
+    @spouse = Individual.find_or_create_by(name: params[:individual][:spouse_name], gender: params[:individual][:spouse_gender], family_tree_id: @tree.id) unless params[:individual][:spouse_name] == "" || params[:individual][:spouse_gender] == nil
         if @spouse
           @individual.spouse_id = @spouse.id
           @spouse.spouse_id = @individual.id
           @spouse.update(spouse_id: @individual.id)
         end
-    if @individual.name == "" 
+    if @individual.name == "" || @individual.gender == nil
       redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave any fields blank."}
     else 
       @individual.save
@@ -114,12 +114,28 @@ class IndividualController < ApplicationController
 
     def fcif?
       individuals =! nil
+      
+    end
+
+    def run_gcif?
+      if @individual.gender.downcase.strip == "m" 
+        if father_children_if_present == "N/A"
+          false
+        else
+          true
+        end
+      else
+        if mother_children_if_present == "N/A"
+          false
+        else
+          true
+        end
       end
     end
 
 
-    def children_if_present
-      if @individual.gender == "m"
+    def gender_children_if_present
+      if @individual.gender.downcase.strip == "m"
         father_children_if_present
       else
         mother_children_if_present

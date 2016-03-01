@@ -6,6 +6,7 @@ class CreateIndividuals < ActiveRecord::Migration
       t.integer :father_id
       t.integer :mother_id
       t.integer :spouse_id
+      t.string :gender
 
       t.timestamps
     end
