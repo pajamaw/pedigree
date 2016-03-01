@@ -6,7 +6,9 @@
   <ul>Father: <%=father_if_present%></ul>
   <ul>Mother: <%=mother_if_present %></ul>
   <ul>Spouse: <%=spouse_if_present %></ul>
-  <ul>Children: </ul>
+  <%father_children_if_present.each do |t|%>
+  <ul>Child: <%=t.name%></ul>
+  <%end%>
 
 <p><a href="/family_trees/<%=@tree.id%>/individuals/<%=@individual.id%>/edit">Edit Individual Name</a>
   <br/><a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a></p>

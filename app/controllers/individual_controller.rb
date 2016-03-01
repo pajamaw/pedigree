@@ -112,12 +112,37 @@ class IndividualController < ApplicationController
       @sibling
     end
 
-    def self.spouse_builder
-      @sp = self.spouse 
-      @sp.spouse = self.name
+    def fcif?
+      individuals =! nil
+      end
     end
 
 
+    def children_if_present
+      if @individual.gender == "m"
+        father_children_if_present
+      else
+        mother_children_if_present
+      end
+    end
+
+    def father_children_if_present
+      @children = []
+      if @individual.childs_father == []
+        "N/A"
+      else
+         @individual.childs_father.each {|c| c["name"]}
+      end
+    end
+
+    def mother_children_if_present
+      @children = []
+      if @individual.childs_mother == []
+        "N/A"
+      else
+         @individual.childs_mother.each {|c| c["name"]}
+      end
+    end
 
     def father_if_present
       if @individual.father_id ==nil

@@ -2,7 +2,7 @@
 <% @trees.each do |tree|%>
 
 <p>Name: <a href="/family_trees/<%=tree.id%>"><%=tree.name%></a></p>
-<p>Created by: <%%></p>
+<p>Created by: <%=tree.user.username%></p>
 <p>Posted at: <%=tree.created_at%></p>
 
 <%end%>
