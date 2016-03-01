@@ -28,12 +28,15 @@ class IndividualController < ApplicationController
 
   post "/family_trees/:id/individuals" do
     @tree = FamilyTree.find_by_id(params[:id])
-    @individual = Individual.find_or_create_by(name: params[:individual_name], family_tree_id: @tree.id)
-    @individual.father = Individual.find_or_create_by(name: params[:father_name], family_tree_id: @tree.id)  
-    @individual.mother = Individual.find_or_create_by(name: params[:mother_name], family_tree_id: @tree.id)
+    @individual = Individual.find_or_create_by(name: params[:individual][:name], family_tree_id: @tree.id)
+    @individual.father = Individual.find_or_create_by(name: params[:individual][:father_name], family_tree_id: @tree.id)  
+    @individual.mother = Individual.find_or_create_by(name: params[:individual][:mother_name], family_tree_id: @tree.id)
+    @individual.spouse = Individual.find_or_create_by(name: params[:individual][:spouse_name], family_tree_id: @tree.id) unless params[:individual][:spouse_name] == ""
+
     if @individual.name == "" 
       redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave any fields blank."}
     else 
+      @individual.save
       redirect "/family_trees/#{@tree.id}/individuals" 
     end
   end

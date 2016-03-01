@@ -1,9 +1,10 @@
-<h1>Create an individual!</h1>
+<h2>Create an individual!</h2>
 <form action="/family_trees/<%=@tree.id%>/individuals" method="POST">
   <h2>Family Tree: <%=@tree.name%></h2>
   <h3>Individual</h3>
-  Individual's Name: <input type="text" id="individual_name" name="individual_name"/><br>
-  Individual's Father's Name: <input type="text" id="individual[father]" name="father_name"/><br>
-  Individual's Mother's Name: <input type="text" id="individual[mother" name="mother_name"/><br>
+  Individual's Name: <input type="text" id="name" name="individual[name]"/><br>
+  Individual's Father's Name: <input type="text" id="father_name" name="individual[father_name]"/><br>
+  Individual's Mother's Name: <input type="text" id="mother_name" name="individual[mother_name]"/><br>
+  Individual's Spouses's Name: <input type="text" id="spouse_name" name="individual[spouse_name]"/><br>
   <input type="submit" value="submit"/>
 </form>

@@ -1,9 +1,9 @@
-<h1>Welcome <%=current_user.username%>!</h1>
+<h2>Welcome <%=current_user.username%>!</h2>
 
 <h3><%=@tree.name%></h3>
 <h4>Members of the Tree:</h4>
 <%@individuals.each do |t|%>
-  <p><a href="/family_trees/<%=@tree.id%>/individuals/<%=t.id%>"><%= t.name%></a></p>
+  <p><a href="/family_trees/<%=@tree.id%>/individuals/<%=t.id%>"><%=t.name%></a></p>
   <%end%>
 
 <p><a href="/family_trees/<%=@tree.id%>/individuals/new">Add Individuals</a></p>
@@ -13,7 +13,8 @@
   <input id="hidden" type="hidden" name="_method" value="delete"/>
   <input type="submit" name="Delete Tree" id="Delete" value="Delete Tree"/>
 </form>
-<p><a href="/family_trees">All Trees</a></p>
-<p><a href="/users/logout">Log Out</a></p>
+<h4><a href="/family_trees">All Trees</a></h3>
+
+<h3><a href="/users/logout">Log Out</a></h3>
 
 

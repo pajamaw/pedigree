@@ -1,4 +1,4 @@
-<h1>Edit Individual</h1>
+<h2>Edit Individual</h2>
 
 <form action="/family_trees/<%=@tree.id%>/individuals/<%=@individual.id%>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
@@ -12,5 +12,5 @@
     <input type="submit" value='submit'/>
 </form>
 
-<p><a href="/users/logout">Log Out</a></p>
 <p><a href="/family_trees/<%=@tree.id%>">Back to the <%@tree.name%> Tree!</a></p>
+<p><a href="/users/logout">Log Out</a></p>

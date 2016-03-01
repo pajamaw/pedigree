@@ -5,6 +5,7 @@ class CreateIndividuals < ActiveRecord::Migration
       t.string :name
       t.string :father
       t.string :mother
+      t.string :spouse
 
       t.timestamps
     end

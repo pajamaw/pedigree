@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160229152432) do
     t.string   "name"
     t.string   "father"
     t.string   "mother"
+    t.string   "spouse"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

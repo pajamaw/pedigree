@@ -30,13 +30,14 @@ class FamilyTreeController < ApplicationController
 
   get '/family_trees/:id' do 
     if logged_in?
+      @individuals =[]
       @tree = FamilyTree.find_by_id(params[:id])
-      @individuals = []
-      Individual.all.each do |t|
+      @individuals = Individual.all.select do |t|
         if t.family_tree_id == @tree.id
-          @individuals << t
+         @individuals << t
         end
       end
+      @individuals
       erb :'family_trees/show'
     else
       redirect "/users/login"
