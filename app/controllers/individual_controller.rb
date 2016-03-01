@@ -41,6 +41,7 @@ class IndividualController < ApplicationController
         if @spouse
           @individual.spouse_id = @spouse.id
           @spouse.spouse_id = @individual.id
+          @spouse.update(spouse_id: @individual.id)
         end
     if @individual.name == "" 
       redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave any fields blank."}
@@ -115,6 +116,34 @@ class IndividualController < ApplicationController
       @sp = self.spouse 
       @sp.spouse = self.name
     end
+
+
+
+    def father_if_present
+      if @individual.father_id ==nil
+        "N/A"
+      else
+        @individual.father.name
+      end
+    end
+
+    def mother_if_present
+      if @individual.mother_id ==nil
+        "N/A"
+      else
+        @individual.mother.name
+      end
+    end
+
+    def spouse_if_present
+      if @individual.spouse_id == nil
+        "N/A"
+      else
+        @individual.spouse.name
+      end
+    end
+
+
 
     
     #def grandfather?(individual)
