@@ -24,9 +24,7 @@ class ApplicationController < Sinatra::Base
 
     def belongs_to_you?
       current_user.id == @tree.user_id
-    end
-
-    
+    end 
 
   end
 end

@@ -205,6 +205,8 @@ class IndividualController < ApplicationController
       else
          @individual.childs_father
       end
+        rescue
+      "N/A"
     end
 
     def mother_children_if_present
@@ -213,18 +215,22 @@ class IndividualController < ApplicationController
       else
          @individual.childs_mother
       end
+       rescue
+      "N/A"
     end
 
     ####end of children methods######
 
     ####parent and spouse helper methods######
     def father_if_present
-      if @individual.father_id ==nil
-        "N/A"
+      if @individual.father_id == nil
+       "N/A"
       else
-        @dad_id = @individual.father.id
-        @individual.father.name
+         @dad_id = @individual.father.id
+         @individual.father.name
       end
+    rescue
+      "N/A"
     end
 
     def mother_if_present
@@ -234,6 +240,8 @@ class IndividualController < ApplicationController
         @mom_id = @individual.mother.id
         @individual.mother.name
       end
+       rescue
+      "N/A"
     end
 
     def spouse_if_present
@@ -243,6 +251,8 @@ class IndividualController < ApplicationController
         @honey_id = @individual.spouse.id
         @individual.spouse.name
       end
+       rescue
+      "N/A"
     end
     #####end of parent and spouse helper methods#######
 
