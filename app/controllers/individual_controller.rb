@@ -46,7 +46,6 @@ class IndividualController < ApplicationController
           @spouse.update(spouse_id: @individual.id)
         end
     if !(@individual.name != "" || @individual.gender != "")
-        @individual.delete
       redirect "/family_trees/#{@tree.id}/individuals/new", locals: {message: "Please do not leave the name or gender field blank for the individual."}
     else 
       @individual.save
