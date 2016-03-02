@@ -2,19 +2,40 @@
 <h3><%=@tree.name%></h3>
 <h4><%=@individual.name%>'s Relationships:</h4>
   
-  <ul>Father: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@dad_id%>"><%=father_if_present %></a></ul>
-  <ul>Mother: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@mom_id%>"><%=mother_if_present %></a></ul>
-  <ul>Spouse: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@honey_id%>"><%=spouse_if_present %></a></ul>
-  <%if run_gcif? %>
+    <%if run_gcif? %>
       <%gender_children_if_present.each do |child|%>
   <ul>Child: <a href="/family_trees/<%=@tree.id%>/individuals/<%=child.id%>"><%=child.name%></a></ul>
-  <%end%>
-  <%end%>
-  <%if sibling !=[] %>
+      <%end%>
+    <%end%>
+
+  <ul>Spouse: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@honey_id%>"><%=spouse_if_present %></a></ul>
+
+    <%if sibling !=[] %>
       <%sibling.each do |sib|%>
   <ul>Sibling: <a href="/family_trees/<%=@tree.id%>/individuals/<%=sib.id%>"><%=sib.name%></a></ul>
-  <%end%>
-  <%end%>
+      <%end%>
+    <%end%>
+
+  <ul>Father: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@dad_id%>"><%=father_if_present %></a></ul>
+  
+  <ul>Mother: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@mom_id%>"><%=mother_if_present %></a></ul>
+
+    <%if paternal_grandfather_if_present %>
+  <ul>Paternal Grandfather: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@grandpad.id%>"><%=@grandpad.name%></a></ul>
+    <%end%>
+
+    <%if paternal_grandmother_if_present %>
+  <ul>Paternal Grandmother: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@grandmad.id%>"><%=@grandmad.name%></a></ul>
+    <%end%>
+
+      <%if maternal_grandfather_if_present %>
+  <ul>Maternal Grandfather: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@grandpam.id%>"><%=@grandpam.name%></a></ul>
+    <%end%>
+
+    <%if maternal_grandmother_if_present %>
+  <ul>Maternal Grandmother: <a href="/family_trees/<%=@tree.id%>/individuals/<%=@grandmam.id%>"><%=@grandmam.name%></a></ul>
+    <%end%>
+  
 
 <p><a href="/family_trees/<%=@tree.id%>/individuals/<%=@individual.id%>/edit">Edit Individual Name</a>
   <br/><a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a></p>

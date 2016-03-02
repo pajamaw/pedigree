@@ -109,6 +109,50 @@ class IndividualController < ApplicationController
   helpers do 
 
 
+    ##Grandparents methods##
+    def paternal_grandparents
+      paternal_grandfather_if_present
+      paternal_grandmother_if_present
+    end
+
+    def maternal_grandparents
+      maternal_grandfather_if_present
+      maternal_grandmother_if_present
+    end
+
+    def paternal_grandfather_if_present
+      if @individual.father.father_id !=nil
+        @grandpad = @individual.father.father
+      end
+      rescue
+        false
+    end
+
+    def paternal_grandmother_if_present
+      if @individual.father.mother_id !=nil
+        @grandmad = @individual.father.mother
+      end
+      rescue
+       false
+    end
+
+    def maternal_grandfather_if_present
+      if @individual.mother.father_id !=nil
+        @grandpam = @individual.mother.father
+      end
+      rescue
+        false
+    end
+
+    def maternal_grandmother_if_present
+      if @individual.mother.mother_id !=nil
+        @grandmam = @individual.mother.mother
+      end
+      rescue
+        false
+    end
+
+
     def sibling
       @sibling = []
       if father_if_present != "N/A"
