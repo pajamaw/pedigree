@@ -1,7 +1,7 @@
 module Slugifiable
 
   def slug
-    self.username.downcase
+    self.name.downcase
   end
 
   def find_by_slug(slug)

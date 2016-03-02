@@ -1,19 +1,21 @@
 class IndividualController < ApplicationController
 
 
-  get "/family_trees/:id/individuals" do 
-    if logged_in?
-      @individuals = []
-      @tree = FamilyTree.find_by_id(params[:id])
-      Individual.all.each do |t|
-        if t.family_tree_id == @tree.id
-          @individuals << t
+  ['/family_trees/:id/individuals', '/family_trees/:id/individuals/'].each do |path|
+    get path do
+      if logged_in?
+        @individuals = []
+        @tree = FamilyTree.find_by_id(params[:id])
+        Individual.all.each do |t|
+          if t.family_tree_id == @tree.id
+            @individuals << t
+          end
         end
+        @individuals
+        erb :'individuals/index'
+      else
+        redirect "/family_trees/:id"
       end
-      @individuals
-      erb :'individuals/index'
-    else
-      redirect "/family_trees/:id"
     end
   end  
 
@@ -105,18 +107,29 @@ class IndividualController < ApplicationController
 
 
   helpers do 
+
+
     def sibling
       @sibling = []
-      @sibling = Individual.all.select do |t|
+      if father_if_present != "N/A"
+        Individual.all.each do |t|
+          if t.father_id == @individual.father_id
+            @sibling << t unless t == @individual
+          end
         end
-      @sibling
+      elsif mother_if_present != "N/A"
+       Individual.all.each do |t|
+          if t.mother_id == @individual.mother_id
+            @sibling << t unless t == @individual
+          end
+        end
+      end
+        @siblings = @sibling.uniq
+        @siblings
     end
 
-    def fcif?
-      individuals =! nil
-      
-    end
 
+    #####children methods######
     def run_gcif?
       if @individual.gender.downcase.strip == "m" 
         if father_children_if_present == "N/A"
@@ -143,27 +156,29 @@ class IndividualController < ApplicationController
     end
 
     def father_children_if_present
-      @children = []
       if @individual.childs_father == []
         "N/A"
       else
-         @individual.childs_father.each {|c| c["name"]}
+         @individual.childs_father
       end
     end
 
     def mother_children_if_present
-      @children = []
       if @individual.childs_mother == []
         "N/A"
       else
-         @individual.childs_mother.each {|c| c["name"]}
+         @individual.childs_mother
       end
     end
 
+    ####end of children methods######
+
+    ####parent and spouse helper methods######
     def father_if_present
       if @individual.father_id ==nil
         "N/A"
       else
+        @dad_id = @individual.father.id
         @individual.father.name
       end
     end
@@ -172,6 +187,7 @@ class IndividualController < ApplicationController
       if @individual.mother_id ==nil
         "N/A"
       else
+        @mom_id = @individual.mother.id
         @individual.mother.name
       end
     end
@@ -180,11 +196,18 @@ class IndividualController < ApplicationController
       if @individual.spouse_id == nil
         "N/A"
       else
+        @honey_id = @individual.spouse.id
         @individual.spouse.name
       end
     end
+    #####end of parent and spouse helper methods#######
 
-
+    def warmup_methods
+      father_if_present
+      mother_if_present
+      spouse_if_present
+      gender_children_if_present
+    end
 
     
     #def grandfather?(individual)
