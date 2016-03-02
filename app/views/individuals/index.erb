@@ -1,9 +1,14 @@
 <h2>Welcome <%= current_user.username%>!</h2>
 
-<h3><%=@tree.name%> Tree Members</h3>
-<%@individuals.each do |individual|%>
-<p>Name: <a href="/family_trees/<%=@tree.id%>/individuals/<%=individual.id%>"><%=individual.name%></a></p>
-<%end%>
-<p><a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a></p>
-<p><a href="/family_trees">Back to all Trees</a></p>
-<p><a href="/users/logout">Log Out</a></p>
+  <h3><%=@tree.name%> Tree Members</h3>
+  <h4>Click on each Member to inquire about their relationships</h4> 
+    <%@individuals.each do |individual|%>
+    
+      <ul>Name: <a href="/family_trees/<%=@tree.id%>/individuals/<%=individual.id%>"><%=individual.name%></a></ul>
+    <%end%>
+    <p></p><br></br><p></p>
+    <p><a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a><br></br><a href="/family_trees/<%=@tree.id%>/individuals/new">Add Relationships to Current Members</a></p>
+  
+
+    <p><a href="/family_trees">Back to all Trees</a></p>
+    <p><a href="/users/logout">Log Out</a></p>

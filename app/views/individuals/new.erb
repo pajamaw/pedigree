@@ -1,11 +1,17 @@
-<h2>Create an individual!</h2>
+<%unless locals.empty? %>
+  <p><% message %></p>
+<% end %>
+
+<h2>Create an individual and/or Add Relationships to Current Individuals!</h2>
+    <h3>To add relationships to current members, simply input the base individual as in the first box with their gender and fill out the remaining slots.</h3>
 <form action="/family_trees/<%=@tree.id%>/individuals" method="POST">
   <h2>Family Tree: <%=@tree.name%></h2>
   <h3>Individual</h3>
-  <st>Required</st>:Individual's Name: <input type="text" id="name" name="individual[name]"/>Gender: <input type="radio" id="gender" name="individual[gender]" value="m"/> : Male <input type="radio" id="gender" name="individual[gender]" value ="f"/> : Female<br/>
-  Individual's Father's Name: <input type="text" id="father_name" name="individual[father_name]"/>Gender: <input type="radio" id="father_gender" name="individual[father_gender]" value="m" /> : Male <input type="radio" id="father_gender" name="individual[father_gender]" value ="f"/> : Female<br/><br>
-  Individual's Mother's Name: <input type="text" id="mother_name" name="individual[mother_name]"/>Gender: <input type="radio" id="mother_gender" name="individual[mother_gender]" value="m"/> : Male <input type="radio" id="mother_gender" name="individual[mother_gender]" value ="f"/> : Female<br/><br>
-  Individual's Spouses's Name: <input type="text" id="spouse_name" name="individual[spouse_name]"/>Gender: <input type="radio" id="spouse_gender" name="individual[spouse_gender]" value="m"/> : Male <input type="radio" id="spouse_gender" name="individual[spouse_gender]" value ="f"/> : Female<br/><br>
+  <b>Required</b>: Individual's Name: <input type="text" id="name" name="individual[name]"/> <b>Required</b>:  Gender: <input type="radio" id="gender" name="individual[gender]" value="m"/> : Male <input type="radio" id="gender" name="individual[gender]" value ="f"/> : Female<br></br>
+  Individual's Father's Name: <input type="text" id="father_name" name="individual[father_name]"/>   Gender: <input type="radio" id="father_gender" name="individual[father_gender]" value="m" /> : Male <input type="radio" id="father_gender" name="individual[father_gender]" value ="f"/> : Female<br/><br>
+  Individual's Mother's Name: <input type="text" id="mother_name" name="individual[mother_name]"/>  Gender: <input type="radio" id="mother_gender" name="individual[mother_gender]" value="m"/> : Male <input type="radio" id="mother_gender" name="individual[mother_gender]" value ="f"/> : Female<br/><br>
+  Individual's Spouses's Name: <input type="text" id="spouse_name" name="individual[spouse_name]"/> Gender: <input type="radio" id="spouse_gender" name="individual[spouse_gender]" value="m"/> : Male <input type="radio" id="spouse_gender" name="individual[spouse_gender]" value ="f"/> : Female<br/><br>
   <input type="submit" value="submit"/>
-
 </form>
+<p>You'll be redirected back to this page if both fields are not filled in for an individual</p>
+<p><a href="/family_trees/<%=@tree.id%>">Back to the <%=@tree.name%> Tree!</a></p>

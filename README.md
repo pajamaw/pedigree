@@ -9,3 +9,30 @@ but all i need is the family
 and the individual
 
 every instance becomes a family member. you have to put in who is related to who. and every one creates a new instance. 
+
+1. have to be able to define 
+   grandfather
+   grandmother
+   aunt 
+   uncle
+   brother
+   sister
+   son 
+   daughter 
+
+   from starting point of 1 person
+
+ 2. things i have to use 
+  individual.name
+  individual.father
+  individual.mother
+  individual.spouse
+
+  3. brother
+    def sibling
+      @sibling = []
+      @sibling = Individual.all.collect do |t|
+                  t.father && t.mother
+                  end
+                  end
+

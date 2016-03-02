@@ -1,3 +1,7 @@
+<% unless locals.empty? %>
+  <%= message %>
+<% end %>
+
 <h2>Edit Individual</h2>
 
 <form action="/family_trees/<%=@tree.id%>/individuals/<%=@individual.id%>" method="POST">
@@ -9,7 +13,7 @@
 
   
 
-  <p>Note: If you'd like to add parental or spousal relationships. Simply go to <a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a> and type the name of the individual whom you'd like to add relations to, and then add the additional names in the 3 other boxes.</p>
+  <p>Note: If you'd like to add parental or spousal relationships. Simply go to <a href="/family_trees/<%=@tree.id%>/individuals/new">Create New Individual</a> and type the name of the individual whom you'd like to add relations to, and then add the additional names and genders in the 3 other boxes.</p>
 
     <input type="submit" value='submit'/>
 </form>

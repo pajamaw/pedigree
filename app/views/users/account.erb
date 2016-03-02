@@ -1,6 +1,7 @@
 <h2>Welcome <%= current_user.username%>!</h2>
-
-<p>Your Family <%  %> </p>
+<% current_user.family_trees.each do |tree|%>
+<h4>Family Tree: <a href="/family_trees/<%=tree.id%>"><%=tree.name%></a></h4>
+<%end%>
 
 <p>Account created on: <%=current_user.created_at%></p>
 

@@ -1,10 +1,14 @@
 <h2>Welcome, <%=current_user.username%>!</a></h2>
-<% @trees.each do |tree|%>
+  
+  <% @trees.each do |tree|%>
 
-<p>Name: <a href="/family_trees/<%=tree.id%>"><%=tree.name%></a></p>
-<p>Created by: <%=tree.user.username%></p>
-<p>Posted at: <%=tree.created_at%></p>
+  <li>Name: <b><a href="/family_trees/<%=tree.id%>"><%=tree.name%></a></b></li>
+    <ul>Created by: <%=tree.user.username%></ul>
+    <ul>Created at: <%=tree.created_at%></ul>
 
-<%end%>
+    <%end%>
+
+    <p><br></br></p>
+<p><a href="/users/account">Back to Your Account</a></p>
 <p><a href="/family_trees/new">Create New Tree</a></p>
 <p><a href="/users/logout">Logout</a></p>
