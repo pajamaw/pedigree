@@ -66,15 +66,11 @@ class IndividualController < ApplicationController
   get '/family_trees/:id/individuals/:id/edit' do 
     if logged_in?
       @individual = Individual.find_by_id(params[:id])
-      @tree = FamilyTree.find_by_id(@individual.family_tree_id)
-      if @tree.user_id == session[:id]
+      @tree = current_user.family_trees.find(@individual.family_tree_id)
         erb :'individuals/edit'
       else
         redirect "/family_trees/#{@tree.id}/individuals/#{@individual.id}"
       end
-    else
-      redirect "/users/login"
-    end
   end
 
   patch "/family_trees/:id/individuals/:id" do
@@ -84,7 +80,7 @@ class IndividualController < ApplicationController
     if params[:individual][:name] == ""
       redirect "/family_trees/#{@tree.id}/individuals/#{@individual.id}/edit", locals: {message: "Please do not leave any fields blank."}
     else
-      
+
       @individual.update(name: params[:individual][:name])
       redirect to "/family_trees/#{@tree.id}/individuals"
     end
@@ -92,7 +88,7 @@ class IndividualController < ApplicationController
 
   delete "/family_trees/:id/individuals/:id/delete" do
     if logged_in?
-    @individual = Individual.find_by_id(params[:id])
+    @individual = Individual.find_by(id: params[:id])
     @tree = FamilyTree.find_by_id(@individual.family_tree_id)
       if @tree.user_id == session[:id]
         @individual.delete

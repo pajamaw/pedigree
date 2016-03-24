@@ -10,42 +10,42 @@ class Individual < ActiveRecord::Base
   belongs_to :spouse, class_name: "Individual"
 
  def paternal_grandparents
-    self.paternal_grandfather_if_present
-    self.paternal_grandmother_if_present
+    paternal_grandfather_if_present
+    paternal_grandmother_if_present
   end
 
   def maternal_grandparents
-    self.maternal_grandfather_if_present
-    self.maternal_grandmother_if_present
+    maternal_grandfather_if_present
+    maternal_grandmother_if_present
   end
 
   def paternal_grandfather_if_present
-    if self.father.father_id !=nil
-      @grandpad = self.father.father
+    if father.father_id !=nil
+      @grandpad = father.father
     end
     rescue
       false
   end
 
   def paternal_grandmother_if_present
-    if self.father.mother_id !=nil
-      @grandmad = self.father.mother
+    if father.mother_id !=nil
+      @grandmad = father.mother
     end
     rescue
      false
   end
 
   def maternal_grandfather_if_present
-    if self.mother.father_id !=nil
-      @grandpam = self.mother.father
+    if mother.father_id !=nil
+      @grandpam = mother.father
     end
     rescue
       false
   end
 
   def maternal_grandmother_if_present
-    if self.mother.mother_id !=nil
-      @grandmam = self.mother.mother
+    if mother.mother_id !=nil
+      @grandmam = mother.mother
     end
     rescue
       false
@@ -54,15 +54,15 @@ class Individual < ActiveRecord::Base
 
   def sibling
     @sibling = []
-    if self.father_if_present != "N/A"
+    if father_if_present != "N/A"
       Individual.all.each do |t|
-        if t.father_id == self.father_id
+        if t.father_id == father_id
           @sibling << t unless t == self
         end
       end
-    elsif self.mother_if_present != "N/A"
+    elsif mother_if_present != "N/A"
      Individual.all.each do |t|
-        if t.mother_id == self.mother_id
+        if t.mother_id == mother_id
           @sibling << t unless t == self
         end
       end
@@ -74,7 +74,7 @@ class Individual < ActiveRecord::Base
 
   #####children methods######
   def run_gcif?
-    if self.gender.downcase.strip == "m" 
+    if gender.downcase.strip == "m" 
       if father_children_if_present == "N/A"
         false
       else
@@ -91,7 +91,7 @@ class Individual < ActiveRecord::Base
 
 
   def gender_children_if_present
-    if self.gender.downcase.strip == "m"
+    if gender.downcase.strip == "m"
       father_children_if_present
     else
       mother_children_if_present
@@ -99,20 +99,20 @@ class Individual < ActiveRecord::Base
   end
 
   def father_children_if_present
-    if self.childs_father == []
+    if childs_father == []
       "N/A"
     else
-       self.childs_father
+       childs_father
     end
       rescue
     "N/A"
   end
 
   def mother_children_if_present
-    if self.childs_mother == []
+    if childs_mother == []
       "N/A"
     else
-       self.childs_mother
+       childs_mother
     end
      rescue
     "N/A"
@@ -122,29 +122,29 @@ class Individual < ActiveRecord::Base
 
   ####parent and spouse helper methods######
   def father_if_present
-    if self.father_id == nil
+    if father_id == nil
      "N/A"
     else
-       @dad_id = self.father.id
-       self.father.name
+       @dad_id = father.id
+       father.name
     end
   rescue
     "N/A"
   end
 
   def mother_if_present
-    if self.mother_id ==nil
+    if mother_id ==nil
       "N/A"
     else
-      @mom_id = self.mother.id
-      self.mother.name
+      @mom_id = mother.id
+      mother.name
     end
      rescue
     "N/A"
   end
 
   def spouse_if_present
-    if self.spouse_id == nil
+    if spouse_id == nil
       "N/A"
     else
       @honey_id = self.spouse.id

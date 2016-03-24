@@ -11,7 +11,7 @@ class UserController < ApplicationController
 
   post "/users/signup" do
     user = User.new(username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation], email: params[:email], family_name: params[:family_name])
-    if params[:username].empty? || params[:password].empty? || params[:email].empty? || params[:family_name].empty?
+    if !user.valid?
       redirect "/users/signup", locals: {message: "Please do not leave any fields blank."}
     else 
       user.save
